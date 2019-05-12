@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace Advence.Lesson_6
@@ -35,7 +36,7 @@ namespace Advence.Lesson_6
 
             foreach (var item in file_mas)
             {
-                Console.WriteLine(item.FullName + item.CreationTime+ item.Length);
+                Console.WriteLine(item.FullName + item.CreationTime + item.Length);
             }
 
         }
@@ -57,7 +58,7 @@ namespace Advence.Lesson_6
         {
             var directoryInfo = new DirectoryInfo("C://Users//Busyona//Downloads//");
             var file_mas = directoryInfo.GetFiles();
-            file_mas[0].CopyTo("C://Users//Busyona//Downloads//2//"+file_mas[0].Name);
+            file_mas[0].CopyTo("C://Users//Busyona//Downloads//2//" + file_mas[0].Name);
 
         }
 
@@ -74,7 +75,7 @@ namespace Advence.Lesson_6
             Console.WriteLine("second name:");
             string name2 = Console.ReadLine();
 
-            using(StreamWriter sw = new StreamWriter("cha.txt"))
+            using (StreamWriter sw = new StreamWriter("cha.txt"))
             {
                 for (int i = 0; i < 5; i++)
                 {
@@ -97,13 +98,7 @@ namespace Advence.Lesson_6
         /// </summary>
         public static void AL6_P6_7_ConsoleSrlzn()
         {
-            Song song = new Song()
-            {
-                Title = "Title 1",
-                Duration = 247,
-                Lyrics = "Lyrics 1"
-            };
-           
+            
         }
 
         /// <summary>
@@ -112,7 +107,18 @@ namespace Advence.Lesson_6
         /// </summary>
         public static void AL6_P7_7_FileSrlz()
         {
+            Song song = new Song()
+            {
+                Title = "Title 1",
+                Duration = 247,
+                Lyrics = "Lyrics 1"
+            };
 
+            XmlSerializer formatXmlSerializer = new XmlSerializer(typeof(Song));
+            FileStream fs = new FileStream("f://song.xml", FileMode.OpenOrCreate);
+            formatXmlSerializer.Serialize(fs, song);
+
+            Song newSong = (Song)formatXmlSerializer.Deserialize(fs);
         }
 
     }
