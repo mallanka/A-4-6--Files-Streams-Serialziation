@@ -98,7 +98,17 @@ namespace Advence.Lesson_6
         /// </summary>
         public static void AL6_P6_7_ConsoleSrlzn()
         {
-            
+            Song song = new Song()
+            {
+                Title = "Title 1",
+                Duration = 247,
+                Lyrics = "Lyrics 1"
+            };
+            XmlSerializer formatXmlSerializer = new XmlSerializer(typeof(Song));
+            StringWriter sw = new StringWriter();
+            formatXmlSerializer.Serialize(sw, song);
+            Console.WriteLine(sw);
+            Song newSong = (Song)formatXmlSerializer.Deserialize(new StringReader(sw.ToString()));
         }
 
         /// <summary>
